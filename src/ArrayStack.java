@@ -93,41 +93,40 @@ class ArrayStack {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the number of students: ");
-        int numStudents = scanner.nextInt();
+         Scanner scanner = new Scanner(System.in);
+         System.out.print("Enter the number of students: ");
+         int numStudents = scanner.nextInt();
 
-        ArrayStack stack = new ArrayStack(numStudents);
-        Random random = new Random();
+         ArrayStack stack = new ArrayStack(numStudents);
+         Random random = new Random();
 
-        // Add random students to the stack
-        for (int i = 0; i < numStudents; i++) {
-            double marks = random.nextDouble() * 10; // Random marks between 0 and 10
-            stack.push(new Student(i + 1, marks));
-        }
+         // Add random students to the stack
+         for (int i = 0; i < numStudents; i++) {
+             double marks = random.nextDouble() * 10; // Random marks between 0 and 10
+             String name = "Student " + (i + 1);
+             stack.push(new Student(i + 1, name, marks));
+         }
 
-        System.out.println("\nOriginal stack of students:");
-        stack.displayStack();
+         System.out.println("\nOriginal stack of students:");
+         stack.displayStack();
 
-        // Bubble Sort
-        Student[] bubbleArray = stack.toArray();
-        long bubbleStartTime = System.nanoTime();
-        bubbleSort(bubbleArray);
-        long bubbleEndTime = System.nanoTime();
-        stack.updateFromArray(bubbleArray); // Update stack with sorted array
-        System.out.println("\nStudents sorted by Bubble Sort:");
-        stack.displayStack();
-        System.out.println("Bubble Sort completed in " + (bubbleEndTime - bubbleStartTime) + " nanoseconds.");
+         // Bubble Sort
+         Student[] bubbleArray = stack.toArray();
+         Student[] quickArray = stack.toArray(); // Separate array for Quick Sort
 
-        // Quick Sort
-        stack.updateFromArray(stack.toArray()); // Reset stack to original
-        Student[] quickArray = stack.toArray();
-        long quickStartTime = System.nanoTime();
-        quickSort(quickArray, 0, quickArray.length - 1);
-        long quickEndTime = System.nanoTime();
-        stack.updateFromArray(quickArray); // Update stack with sorted array
-        System.out.println("\nStudents sorted by Quick Sort:");
-        stack.displayStack();
-        System.out.println("Quick Sort completed in " + (quickEndTime - quickStartTime) + " nanoseconds.");
-    }
-}
+         long bubbleStartTime = System.nanoTime();
+         bubbleSort(bubbleArray);
+         long bubbleEndTime = System.nanoTime();
+         System.out.println("\nStudents sorted by Bubble Sort:");
+//       System.out.println(student);
+         System.out.println("Bubble Sort completed in " + (bubbleEndTime - bubbleStartTime) + " nanoseconds.");
+
+         // Quick Sort
+         long quickStartTime = System.nanoTime();
+         quickSort(quickArray, 0, quickArray.length - 1);
+         long quickEndTime = System.nanoTime();
+         System.out.println("\nStudents sorted by Quick Sort:");
+//       System.out.println(student)
+         System.out.println("Quick Sort completed in " + (quickEndTime - quickStartTime) + " nanoseconds.");
+     }
+ }
